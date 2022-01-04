@@ -7,4 +7,3 @@ class Solution:
             ans+=(2**l)*((int(i)+1)%2)
             l-=1
         return ans
-            
