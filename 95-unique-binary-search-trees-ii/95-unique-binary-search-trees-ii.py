@@ -6,42 +6,18 @@
 #         self.right = right
 class Solution:
     def generateTrees(self, n: int) -> List[Optional[TreeNode]]:
-        if n==1:
-            return [TreeNode(1)]
         
-        def LevelOrder(root,ans):
-            if root is None:
-                return 
-            queue=[]
-            queue.append(root)
-            while(len(queue) > 0):
-                ans.append(queue[0].val)
-                node = queue.pop(0)
-                if node.left != None:
-                    queue.append(node.left)
-                if node.right != None:
-                    queue.append(node.right)
+        def helper(left,right):
+            if left>right:
+                return [None]
+            ans=[]
+            for root in range(left,right+1):
+                for x in helper(left,root-1):
+                    for y in helper(root+1,right):
+                        node=TreeNode(root)
+                        node.left=x
+                        node.right=y
+                        ans.append(node)
             return ans
         
-        def insertval(node,k):
-            if node==None:
-                return TreeNode(k)
-            if node.val>=k:
-                node.left = insertval(node.left,k)
-            else:
-                node.right = insertval(node.right,k)
-            return node
-        
-        arr=["1","12","123","1234","12345","123456","1234567","12345678"]
-        per=list(permutations(arr[n-1],n))
-        ans=[]
-        dic={}
-        for item in per:
-            node=TreeNode(int(item[0]))
-            for x in range(1,len(item)):
-                insertval(node,int(item[x]))
-            t1=tuple(LevelOrder(node,[]))
-            if t1 not in dic:
-                dic[t1]=1
-                ans.append(node)
-        return ans
+        return helper(1,n)
