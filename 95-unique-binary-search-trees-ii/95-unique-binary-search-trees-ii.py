@@ -6,7 +6,6 @@
 #         self.right = right
 class Solution:
     def generateTrees(self, n: int) -> List[Optional[TreeNode]]:
-        #for your review 1, i want your title, abstract, references
         if n==1:
             return [TreeNode(1)]
         
@@ -32,7 +31,6 @@ class Solution:
             else:
                 node.right = insertval(node.right,k)
             return node
-
         
         arr=["1","12","123","1234","12345","123456","1234567","12345678"]
         per=list(permutations(arr[n-1],n))
@@ -46,5 +44,4 @@ class Solution:
             if t1 not in dic:
                 dic[t1]=1
                 ans.append(node)
-        print(len(ans))
         return ans
