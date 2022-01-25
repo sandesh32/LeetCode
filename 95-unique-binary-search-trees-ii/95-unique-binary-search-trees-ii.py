@@ -32,16 +32,7 @@ class Solution:
             else:
                 node.right = insertval(node.right,k)
             return node
-        
-        def makearray(node,k,arr=[]):
-            if node==None:
-                return arr
-            else:
-                if node.left:
-                    arr.append(node.left.val)
-                if node.right:
-                    arr.append(node.right.val)
-                makearray(node.left)
+
         
         arr=["1","12","123","1234","12345","123456","1234567","12345678"]
         per=list(permutations(arr[n-1],n))
