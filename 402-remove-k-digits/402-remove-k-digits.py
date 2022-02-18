@@ -8,7 +8,4 @@ class Solution:
             stack.append(i)
         if k>0:
             stack=stack[:-k]
-        for i in range(len(stack)):
-            if stack[i]>'0':
-                return "".join(stack[i:])
-        return '0'
+        return "".join(stack).lstrip('0') or '0'
