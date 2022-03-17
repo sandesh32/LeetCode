@@ -8,5 +8,5 @@ class Solution:
             else:
                 count-=1
                 if s[i-1]=="(":
-                    ans+=2**count                
+                    ans+=1<<count                
         return ans
