@@ -1,12 +1,14 @@
 class Solution:
     def minimumTotal(self, triangle: List[List[int]]) -> int:
-        d=[['a' for j in range(len(triangle[i]))] for i in range(len(triangle))]
-        def helper(i,j):
-            if i==len(triangle):
-                return 0
-            if d[i][j]!='a':
-                return d[i][j]
-            ans = min(helper(i+1,j),helper(i+1,j+1))+triangle[i][j]
-            d[i][j]=ans
-            return ans
-        return helper(0,0)
+        dp=[['_' for j in range(len(triangle[i]))] for i in range(len(triangle))]
+        dp[0][0]=triangle[0][0]
+        for i in range(1,len(triangle)):
+            for j in range(len(triangle[i])):
+                if j==0:
+                    dp[i][0]=dp[i-1][0]
+                elif j==len(triangle[i])-1:
+                    dp[i][j]=dp[i-1][j-1]
+                else:
+                    dp[i][j]=min(dp[i-1][j],dp[i-1][j-1])
+                dp[i][j]+=triangle[i][j]
+        return min(dp[-1])
