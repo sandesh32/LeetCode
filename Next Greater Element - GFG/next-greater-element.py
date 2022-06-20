@@ -3,32 +3,24 @@
 
 class Solution:
     def nextLargerElement(self,nums,n):
-        arr = [0 for i in range(n)]
-        arr[n-1]=-1
+        stack = [nums[-1]]
+        ans = [-1]
         for i in range(n-2,-1,-1):
-            if nums[i+1]>nums[i]:
-                arr[i]=i+1
-            elif nums[i]==nums[i+1]:
-                arr[i]=arr[i+1]
-            else:
-                index = arr[i+1]
-                while True:
-                    if nums[index]>nums[i]:
-                        arr[i]=index
-                        break
-                    elif nums[index]==nums[i]:
-                        arr[i]=arr[index]
-                        break
-                    elif arr[index]==-1:
-                        arr[i]=-1
-                        break
-                    else:
-                        index = arr[index]
-        for i in range(len(arr)):
-            if arr[i]!=-1:
-                arr[i]=nums[arr[i]]
-        return arr
-                        
+            check = True
+            while len(stack)>0:
+                if stack[-1]>nums[i]:
+                    ans.append(stack[-1])
+                    check = False
+                    break
+                else:
+                    stack.pop()
+            if check:
+                ans.append(-1)
+            stack.append(nums[i])
+        ans.reverse()
+        return ans
+                    
+                
         #code here
 
 #{ 
