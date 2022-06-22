@@ -3,27 +3,26 @@ class Solution:
         n = len(grid)
         queue = deque()
         
-        for i in range(len(grid)):
-            for j in range(len(grid)):
-                if grid[i][j]==1:
-                    queue.append([i,j])
-                    
-        if len(queue)==n*n or len(queue)==0:
-            return -1
+        ans = [[10**5 for i in range(n)] for j in range(n)]
         
         count = 0
-        while len(queue)>0:
-            r = len(queue)
-            for p in range(r):
-                temp = [[0,-1],[0,1],[-1,0],[1,0]]
-                for i in temp:
-                    x = queue[p][0]+i[0]
-                    y = queue[p][1]+i[1]
-                    if x>=0 and y>=0 and x<n and y<n and grid[x][y]==0:
-                        queue.append([x,y])
-                        grid[x][y]=1
-            for i in range(r):
-                queue.popleft()
-            count+=1
-            
-        return count-1    
+        for i in range(n):
+            for j in range(n):
+                if grid[i][j]==1:
+                    ans[i][j]=0
+                    count+=1
+                if i>0: ans[i][j]=min(ans[i][j],ans[i-1][j]+1)
+                if j>0: ans[i][j]=min(ans[i][j],ans[i][j-1]+1)
+        
+        if count==0 or count==n*n: return -1
+        
+        res = 0
+        for i in range(n-1,-1,-1):
+            for j in range(n-1,-1,-1):
+                if i<n-1: ans[i][j]=min(ans[i][j],ans[i+1][j]+1)
+                if j<n-1: ans[i][j]=min(ans[i][j],ans[i][j+1]+1)
+                res = max(ans[i][j],res)
+        return res
+                
+                
+                   
