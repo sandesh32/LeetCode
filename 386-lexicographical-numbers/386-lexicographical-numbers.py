@@ -1,7 +1,6 @@
 class TrieNode:
     def __init__(self):
         self.children = {}
-        self.ends = False
         
 class Solution:
     def lexicalOrder(self, n: int) -> List[int]:
@@ -14,7 +13,6 @@ class Solution:
                 if c not in temp.children:
                     temp.children[c]=TrieNode()
                 temp = temp.children[c]
-            temp.ends = True
         
         def dfs(node,val):
             if not node:
