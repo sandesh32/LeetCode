@@ -1,16 +1,22 @@
 class Solution:
     def isHappy(self, n: int) -> bool:
-        d = {}
-        while n != 1:
+        def findsum(n):
             temp = 0
             while n > 0:
                 r = n%10
                 temp = temp + r**2
                 n = n // 10
-            n = temp
-            if temp in d:
+            return temp
+        
+        b = findsum(n)
+        a = n
+        while True:
+            if a == 1:
+                return True
+            if a == b:
                 return False
-            d[temp] = 1
-        return True
+            a = findsum(a)
+            b = findsum(findsum(b))
+        
             
         
